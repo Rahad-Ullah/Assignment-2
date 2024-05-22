@@ -3,7 +3,7 @@ import { ProductControllers } from './product.controller'
 
 const router = express.Router()
 
-// create a single product
+// create a new product
 router.post('/', ProductControllers.createProduct)
 
 // retrieve single product
