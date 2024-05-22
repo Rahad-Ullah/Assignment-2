@@ -38,6 +38,11 @@ const getOrders = async (req: Request, res: Response) => {
     }
     const result = await OrderServices.getOrdersFromDB(email)
 
+    // throw error if no data found
+    if(result.length <= 0){
+        throw new Error ('Order not found')
+    }
+
     // send response
     res.status(200).json({
       success: true,
@@ -50,8 +55,7 @@ const getOrders = async (req: Request, res: Response) => {
     // send error
     res.status(500).json({
       success: false,
-      message: 'Something went wrong while searching',
-      error: error.message,
+      message: error?.message,
     })
   }
 }

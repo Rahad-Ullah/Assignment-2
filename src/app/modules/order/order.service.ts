@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Product } from '../product/product.model'
 import { TOrder } from './order.interface'
 import { Order } from './order.model'
@@ -5,7 +6,7 @@ import { Order } from './order.model'
 // create a new order into DB
 const createOrderIntoDB = async (orderData: TOrder) => {
   const product = await Product.findById({ _id: orderData.productId })
-  const availQuantity = product?.inventory.quantity
+  const availQuantity: any = product?.inventory.quantity
   const updatedQuantity = availQuantity - orderData.quantity
 
   //throw error if insufficient stock
