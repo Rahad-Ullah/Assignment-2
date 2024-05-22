@@ -15,4 +15,7 @@ router.get('/:productId', ProductControllers.getProduct)
 // update product information
 router.put('/:productId', ProductControllers.updateProduct)
 
+// delete product
+router.delete('/:productId', ProductControllers.deleteProduct)
+
 export const ProductRoutes = router
