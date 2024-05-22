@@ -6,7 +6,6 @@ const creatProductIntoDB = async (productData: TProduct) => {
   return result
 }
 
-
 export const ProductService = {
-    creatProductIntoDB,
+  creatProductIntoDB,
 }
