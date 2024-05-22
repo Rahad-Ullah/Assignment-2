@@ -10,12 +10,6 @@ const createProductIntoDB = async (productData: TProduct) => {
   return result
 }
 
-// retrieve all products
-const getAllProductsFromDB = async () => {
-  const result = await Product.find()
-  return result
-}
-
 // retrieve single product by Id
 const getProductFromDB = async (productId: string) => {
   const result = await Product.findOne({ _id: productId })
@@ -42,10 +36,23 @@ const deleteProductFromDB = async (productId: string) => {
   return result && null
 }
 
+// search a product in DB
+const searchProductInDB = async (searchTerm: string) => {
+  if (searchTerm) {
+    const result = await Product.find({
+      name: { $regex: searchTerm, $options: 'i' },
+    })
+    return result
+  }
+  // if no searchTerm exist, return all products
+  const result = await Product.find()
+  return result
+}
+
 export const ProductService = {
   createProductIntoDB,
-  getAllProductsFromDB,
   getProductFromDB,
   updateProductIntoDB,
   deleteProductFromDB,
+  searchProductInDB,
 }

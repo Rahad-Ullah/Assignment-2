@@ -6,9 +6,6 @@ const router = express.Router()
 // create a single product
 router.post('/', ProductControllers.createProduct)
 
-// retrieve all products
-router.get('/', ProductControllers.getAllProducts)
-
 // retrieve single product
 router.get('/:productId', ProductControllers.getProduct)
 
@@ -17,5 +14,8 @@ router.put('/:productId', ProductControllers.updateProduct)
 
 // delete product
 router.delete('/:productId', ProductControllers.deleteProduct)
+
+// search product
+router.get('/', ProductControllers.searchProduct)
 
 export const ProductRoutes = router
