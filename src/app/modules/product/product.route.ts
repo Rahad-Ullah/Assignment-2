@@ -6,4 +6,7 @@ const router = express.Router()
 // create a single product
 router.post('/', ProductControllers.createProduct)
 
+// retrieve all products
+router.get('/', ProductControllers.getAllProducts)
+
 export const ProductRoutes = router

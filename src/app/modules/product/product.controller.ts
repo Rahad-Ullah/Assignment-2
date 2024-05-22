@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express'
 import { ProductService } from './product.service'
 import productValidationSchema from './product.validation'
@@ -18,9 +19,28 @@ const createProduct = async (req: Request, res: Response) => {
       message: 'Product created successfully!',
       data: result,
     })
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error: error.message,
+    })
+  }
+}
+
+// retrieve all products
+const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const result = await ProductService.getAllProductsFromDB()
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    })
+  } catch (error: any) {
+    // send error
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -31,4 +51,5 @@ const createProduct = async (req: Request, res: Response) => {
 
 export const ProductControllers = {
   createProduct,
+  getAllProducts,
 }
