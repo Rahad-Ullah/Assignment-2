@@ -22,8 +22,23 @@ const getProductFromDB = async (productId: string) => {
   return result
 }
 
+// update product information
+const updateProductIntoDB = async (
+  productId: string,
+  productData: TProduct,
+) => {
+  const query = { _id: productId }
+  const update = {
+    $set: productData,
+  }
+  const options = { new: true }
+  const result = await Product.findOneAndUpdate(query, update, options)
+  return result
+}
+
 export const ProductService = {
   createProductIntoDB,
   getAllProductsFromDB,
   getProductFromDB,
+  updateProductIntoDB,
 }
