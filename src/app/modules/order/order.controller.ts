@@ -23,8 +23,7 @@ const createOrder = async (req: Request, res: Response) => {
     // send error
     res.status(500).json({
       success: false,
-      message: 'Something went wrong',
-      error: error.message,
+      message: error.message,
     })
   }
 }
@@ -35,7 +34,7 @@ const getOrders = async (req: Request, res: Response) => {
     const email = req.query.email as string
     // validate email
     if (email && !email.includes('@')) {
-      throw new Error('invalid email')
+      throw new Error('Invalid email')
     }
     const result = await OrderServices.getOrdersFromDB(email)
 
@@ -51,7 +50,7 @@ const getOrders = async (req: Request, res: Response) => {
     // send error
     res.status(500).json({
       success: false,
-      message: 'Something went wrong',
+      message: 'Something went wrong while searching',
       error: error.message,
     })
   }
