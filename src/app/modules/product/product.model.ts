@@ -1,5 +1,10 @@
 import { Schema, model } from 'mongoose'
-import { TInventory, TProduct, TVariant } from './product.interface'
+import {
+  ProductModel,
+  TInventory,
+  TProduct,
+  TVariant,
+} from './product.interface'
 
 const variantSchema = new Schema<TVariant>({
   type: {
@@ -23,10 +28,11 @@ const inventorySchema = new Schema<TInventory>({
   },
 })
 
-const productSchema = new Schema<TProduct>({
+const productSchema = new Schema<TProduct, ProductModel>({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   description: {
     type: String,
@@ -54,4 +60,10 @@ const productSchema = new Schema<TProduct>({
   },
 })
 
-export const Product = model<TProduct>('Product', productSchema)
+// * custom method for checking product existence in DB
+productSchema.statics.isProductExist = async function (name: string) {
+  const existingProduct = await Product.findOne({ name })
+  return existingProduct
+}
+
+export const Product = model<TProduct, ProductModel>('Product', productSchema)
